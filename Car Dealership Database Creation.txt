@@ -1,0 +1,68 @@
+CREATE TABLE Salesperson (
+  salesperson_id SERIAL primary key,
+  first_name varchar(32),
+  last_name varchar(32)
+);
+
+CREATE TABLE Customer (
+  customer_id SERIAL primary key,
+  first_name varchar(32),
+  last_name varchar(32)
+);
+
+CREATE TABLE Repair (
+  repair_id SERIAL primary key,
+  car_id SERIAL,
+  mechanic_id SERIAL,
+  part_id SERIAL,
+  subtotal decimal (8, 2)
+);
+
+CREATE TABLE Car (
+  car_id SERIAL primary key,
+  make varchar(32),
+  model varchar(32),
+  serial_number int
+);
+
+CREATE TABLE Mechanic (
+  mechanic_id SERIAL primary key,
+  first_name varchar(32),
+  last_name varchar(32)
+);
+
+CREATE TABLE Part (
+  part_id SERIAL primary key,
+  part_description varchar(32),
+  part_price decimal(4, 2)
+);
+
+CREATE TABLE Service (
+  service_id SERIAL primary key,
+  service_description varchar(32),
+  service_price decimal(4, 2)
+);
+
+CREATE TABLE Invoice (
+  invoice_id SERIAL primary key,
+  salesperson_id SERIAL,
+  car_id SERIAL,
+  customer_id SERIAL,
+  foreign key (salesperson_id) references Salesperson(salesperson_id),
+  foreign key (car_id) references Car(car_id),
+  foreign key (customer_id) references customer(customer_id)
+  );
+
+CREATE TABLE Repair (
+  repair_id SERIAL primary key,
+  car_id SERIAL,
+  mechanic_id SERIAL,
+  part_id SERIAL,
+  subtotal decimal (8, 2),
+  foreign key (car_id) references car(car_id),
+  foreign key (mechanic_id) references mechanic(mechanic_id),
+  foreign key (part_id) references part(part_id)
+);
+
+alter table repair add service_id serial4 
+alter table repair add foreign key (service_id) references service(service_id);
